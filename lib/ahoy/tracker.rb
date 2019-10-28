@@ -232,7 +232,7 @@ module Ahoy
     def existing_visit_token
       @existing_visit_token ||= begin
         token = visit_header
-        token ||= visit_cookie if Ahoy.cookies && !(api? && Ahoy.protect_from_forgery)
+        token ||= visit_cookie if Ahoy.cookies && !(api? && Ahoy.protect_from_forgery && !Ahoy.force_httponly_cookies)
         token ||= visit_param if api?
         token
       end
@@ -241,7 +241,7 @@ module Ahoy
     def existing_visitor_token
       @existing_visitor_token ||= begin
         token = visitor_header
-        token ||= visitor_cookie if Ahoy.cookies && !(api? && Ahoy.protect_from_forgery)
+        token ||= visitor_cookie if Ahoy.cookies && !(api? && Ahoy.protect_from_forgery && !Ahoy.force_httponly_cookies)
         token ||= visitor_param if api?
         token
       end
